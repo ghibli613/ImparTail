@@ -1,7 +1,11 @@
 # This file contains all files related to firebase
-import pyrebase
 from logger_config import get_logger
 from constants import ResultConstants as const
+
+try:
+	import pyrebase
+except ImportError:
+	pyrebase = None
 
 logger = get_logger(__name__)
 
@@ -15,17 +19,26 @@ firebaseProdConfig = {
 	"appId": "1:992959199823:web:a6641f936071b1cf49483a"
 }
 
-firebase = pyrebase.initialize_app(firebaseProdConfig)
+firebase = pyrebase.initialize_app(firebaseProdConfig) if pyrebase is not None else None
 
 logger.info("----------------------------------------------------------------------")
 logger.info("Setting up Firebase Service...in ")
 logger.info("----------------------------------------------------------------------")
 
 
+def _ensure_firebase_available():
+	if firebase is None:
+		raise ImportError(
+			"pyrebase is not installed. Firebase features are optional for inference. "
+			"Install pyrebase4 only if you need to publish/fetch results from Firebase."
+		)
+
+
 class FirebaseService:
 	
 	# 1. Have this db connection constant
 	def __init__(self):
+		_ensure_firebase_available()
 		self.db = firebase.database()
 	
 	# ---------------------- BEGIN RESULTS ----------------------
