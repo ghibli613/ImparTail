@@ -15,7 +15,6 @@ import PIL
 import numpy as np
 import scipy.sparse
 from model.utils.config import cfg
-import pdb
 
 ROOT_DIR = osp.join(osp.dirname(__file__), '..', '..')
 

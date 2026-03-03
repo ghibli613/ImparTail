@@ -12,14 +12,11 @@ from __future__ import absolute_import
 import torch
 import torch.nn as nn
 import numpy as np
-import math
-import yaml
 from fasterRCNN.lib.model.utils.config import cfg
 from .generate_anchors import generate_anchors
-from .bbox_transform import bbox_transform_inv, clip_boxes, clip_boxes_batch
+from .bbox_transform import bbox_transform_inv, clip_boxes
 # from model.nms.nms_wrapper import nms
 from fasterRCNN.lib.model.roi_layers import nms
-import pdb
 
 DEBUG = False
 

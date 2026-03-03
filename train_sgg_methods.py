@@ -2,7 +2,6 @@ from lib.supervised.config import Config
 from train_sgg_base import TrainSGGBase
 from lib.supervised.sgg.sttran.sttran import STTran
 from lib.supervised.sgg.dsgdetr.dsgdetr import DsgDETR
-from lib.supervised.sgg.tempura.tempura import TEMPURA
 
 
 # -----------------------------------------------------------------------------------------------------

@@ -9,8 +9,6 @@
 # --------------------------------------------------------
 
 import torch
-import numpy as np
-import pdb
 
 
 def bbox_transform(ex_rois, gt_rois):

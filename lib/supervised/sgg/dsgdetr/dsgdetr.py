@@ -2,7 +2,6 @@
 Let's get the relationships yo
 """
 
-import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -13,7 +12,6 @@ from lib.word_vectors import obj_edge_vectors
 from lib.fpn.box_utils import center_size
 from fasterRCNN.lib.model.roi_layers import ROIAlign, nms
 from lib.draw_rectangles.draw_rectangles import draw_union_boxes
-from torchvision.ops.boxes import box_area
 from itertools import combinations
 from constants import Constants as const
 
@@ -144,7 +142,7 @@ class ObjectClassifier(nn.Module):
 			if new_scores.shape[0] > 0:
 				new_labels = torch.argmax(new_scores, dim=1) + 1
 			else:
-				new_labels = torch.tensor([], dtype=torch.long).cuda(0)
+				new_labels = torch.tensor([], dtype=torch.long, device=scores.device)
 			
 			final_dists.append(scores)
 			final_dists.append(new_scores)
@@ -230,7 +228,7 @@ class ObjectClassifier(nn.Module):
 				
 				# use the infered object labels for new pair idx
 				HUMAN_IDX = torch.zeros([b, 1], dtype=torch.int64).to(obj_features.device)
-				global_idx = torch.arange(0, entry[const.BOXES].shape[0])
+				global_idx = torch.arange(0, entry[const.BOXES].shape[0], device=box_idx.device)
 				
 				for i in range(b):
 					local_human_idx = torch.argmax(entry[const.DISTRIBUTION][
@@ -388,8 +386,8 @@ class ObjectClassifier(nn.Module):
 							
 							final_labels.append(cls_labels[keep.view(-1).long()])
 							final_dists.append(cls_dists[keep.view(-1).long()])
-							final_boxes.append(torch.cat((torch.tensor([[i]], dtype=torch.float).repeat(keep.shape[0],
-							                                                                            1).cuda(0),
+							final_boxes.append(torch.cat((torch.tensor([[i]], dtype=torch.float, device=cls_boxes.device).repeat(
+								keep.shape[0], 1),
 							                              cls_boxes[order, :][keep.view(-1).long()]), 1))
 							final_feats.append(cls_feats[keep.view(-1).long()])
 				
@@ -403,7 +401,7 @@ class ObjectClassifier(nn.Module):
 				entry[const.PRED_LABELS] = entry[const.PRED_LABELS] + 2
 				# use the infered object labels for new pair idx
 				HUMAN_IDX = torch.zeros([b, 1], dtype=torch.int64).to(box_idx.device)
-				global_idx = torch.arange(0, entry[const.BOXES].shape[0])
+				global_idx = torch.arange(0, entry[const.BOXES].shape[0], device=box_idx.device)
 				
 				for i in range(b):
 					if torch.any(box_idx == i):

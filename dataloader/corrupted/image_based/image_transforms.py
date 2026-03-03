@@ -1,6 +1,6 @@
 # Some image transforms
 
-from PIL import Image, ImageOps, ImageFilter, ImageEnhance
+from PIL import Image, ImageOps, ImageEnhance
 import numpy as np
 from random import randint
 

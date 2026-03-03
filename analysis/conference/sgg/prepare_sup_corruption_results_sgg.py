@@ -1,4 +1,4 @@
-from analysis.conference.prepare_results_base import PrepareResultsBase, fetch_value, fetch_rounded_value
+from analysis.conference.prepare_results_base import PrepareResultsBase
 from constants import CorruptionConstants as const
 
 

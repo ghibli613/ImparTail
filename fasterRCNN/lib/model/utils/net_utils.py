@@ -3,11 +3,8 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.autograd import Variable
 import numpy as np
-import torchvision.models as models
 from fasterRCNN.lib.model.utils.config import cfg
 import cv2
-import pdb
-import random
 
 def save_net(fname, net):
     import h5py

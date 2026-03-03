@@ -9,10 +9,6 @@ from .proposal_layer import _ProposalLayer
 from .anchor_target_layer import _AnchorTargetLayer
 from fasterRCNN.lib.model.utils.net_utils import _smooth_l1_loss
 
-import numpy as np
-import math
-import pdb
-import time
 
 class _RPN(nn.Module):
     """ region proposal network """

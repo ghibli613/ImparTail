@@ -1,7 +1,7 @@
 import csv
 import os
 
-from analysis.conference.prepare_results_base import PrepareResultsBase, fetch_value
+from analysis.conference.prepare_results_base import PrepareResultsBase
 
 
 class PrepareResultsSGA(PrepareResultsBase):

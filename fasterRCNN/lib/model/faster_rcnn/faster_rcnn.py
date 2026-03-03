@@ -1,11 +1,8 @@
-import random
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torch.autograd import Variable
-import torchvision.models as models
 from torch.autograd import Variable
-import numpy as np
 from fasterRCNN.lib.model.utils.config import cfg
 from fasterRCNN.lib.model.rpn.rpn import _RPN
 
@@ -15,9 +12,7 @@ from fasterRCNN.lib.model.roi_layers import ROIAlign, ROIPool
 # from model.roi_align.modules.roi_align import RoIAlignAvg
 
 from fasterRCNN.lib.model.rpn.proposal_target_layer_cascade import _ProposalTargetLayer
-import time
-import pdb
-from fasterRCNN.lib.model.utils.net_utils import _smooth_l1_loss, _crop_pool_layer, _affine_grid_gen, _affine_theta
+from fasterRCNN.lib.model.utils.net_utils import _smooth_l1_loss
 
 class _fasterRCNN(nn.Module):
     """ faster RCNN """

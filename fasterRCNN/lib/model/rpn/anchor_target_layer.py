@@ -12,13 +12,11 @@ from __future__ import absolute_import
 import torch
 import torch.nn as nn
 import numpy as np
-import numpy.random as npr
 
 from fasterRCNN.lib.model.utils.config import cfg
 from .generate_anchors import generate_anchors
-from .bbox_transform import clip_boxes, bbox_overlaps_batch, bbox_transform_batch
+from .bbox_transform import bbox_overlaps_batch, bbox_transform_batch
 
-import pdb
 
 DEBUG = False
 

@@ -1,7 +1,6 @@
 import logging
 import os
 
-import logging.config
 
 
 def setup_logging(filename='std.log', default_level=logging.INFO):
