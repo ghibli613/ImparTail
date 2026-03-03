@@ -107,7 +107,7 @@ cd faster-rcnn.pytorch && mkdir data
 
 ### prerequisites
 
-* Python 2.7 or 3.6
+* Python 3.10+
 * Pytorch 1.0 (for Pytorch 0.4.0 go to master branch)
 * CUDA 8.0 or higher
 
@@ -140,16 +140,7 @@ Install all the python dependencies using pip:
 pip install -r requirements.txt
 ```
 
-Compile the cuda dependencies using following simple commands:
-
-```
-cd lib
-python setup.py build develop
-```
-
-It will compile all the modules you need, including NMS, ROI_Pooing, ROI_Align and ROI_Crop. The default version is compiled with Python 2.7, please compile by yourself if you are using a different python version.
-
-**As pointed out in this [issue](https://github.com/jwyang/faster-rcnn.pytorch/issues/16), if you encounter some error during the compilation, you might miss to export the CUDA paths to your environment.**
+For ImparTail inference/testing workflows, ROI and NMS are provided via `torchvision.ops` and no legacy custom `_C` extension build is required.
 
 ## Train
 

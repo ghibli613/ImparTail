@@ -73,11 +73,15 @@ and place it in the data loader folder
 ### Install required libraries
 
 ```
-conda create -n impartail python=3.7 pip
+conda create -n impartail python=3.12 pip
 conda activate impartail
-pip install torch==1.10.1+cu111 torchvision==0.11.2+cu111 torchaudio==0.10.1 -f https://download.pytorch.org/whl/cu111/torch_stable.html
+pip install --upgrade pip setuptools wheel
+pip install torch torchvision
 pip install -r requirements.txt
 ```
+
+`pyrebase4` is optional and only needed if you use Firebase result publishing.
+The default repo workflow is compatible with Python 3.12 and current stable package releases.
 
 ### Build draw_rectangles modules
 
@@ -105,7 +109,7 @@ conda develop draw_rectangles/
 ### Build bbox modules
 
 ```
-cd fpn/box_intersections_cpu
+cd lib/fpn/box_intersections_cpu
 ```
 Remove any previous builds
 ```
@@ -119,34 +123,14 @@ Build the module
 python setup.py build_ext --inplace
 cd ..
 ```
-Add the path to the current directory to the PYTHONPATH
-
-```
-conda develop fpn/box_intersections_cpu/
-```
+Add the path to the current directory to the PYTHONPATH (optional)
 
 # fasterRCNN model
 
-Remove any previous builds
-
-``` 
-cd fasterRCNN/lib
-rm -rf build/
-```
-
-Change the folder paths in 'fasterRCNN/lib/faster_rcnn.egg.info/SOURCES.txt' to the current directory
-
-```
-python setup.py build develop
-```
-
-If there are any errors, check gcc version ``` Works for 9.x.x```
-
-
-Follow [this](https://www.youtube.com/watch?v=aai42Qp6L28) for changing gcc version
-
-
 Download pretrained fasterRCNN model [here](https://utdallas.box.com/s/1pspm5x8etlczoklyw4bclotsmlejagj) and place in fasterRCNN/models/
+
+Note: The repository now uses `torchvision.ops` for ROI/NMS at runtime, so building the legacy custom `fasterRCNN/lib` `_C` extension is not required for inference.
+
 
 Download the pkl file from [here](https://utdallas.box.com/s/wioo5obxkggs7lyqftvp64fkbs2uz4eu) and place it in dataloader/
 
